@@ -18,8 +18,6 @@ Module.register("MMM-HTTPRequestDisplay",{
 	// Define start sequence.
 	start: function() {
 		Log.info("Starting module: " + this.name);
-		this.loaded = false;
-		this.nodeNames = "";
 	},
 
 	sendRequest: function(id) {
@@ -41,12 +39,12 @@ Module.register("MMM-HTTPRequestDisplay",{
 		xhttp.send();
 	},
 
-	// Override socket notification handler.
-    socketNotificationReceived: function(notification, payload) {
-        if (notification === "BACKGROUND_HTTP_REQUEST")
-        {
-        	this.sendRequest(payload.id);
-        }
-    },
+	// Override notification handler.
+	notificationReceived: function (notification, payload, sender) {
+		if (notification === "BACKGROUND_HTTP_REQUEST") {
+			Log.info(this.name + " got " + notification + "with payload.id: " + payload.id);
+			this.sendRequest(payload.id);
+		}
+	},
 
 });
