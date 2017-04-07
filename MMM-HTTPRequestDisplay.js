@@ -23,9 +23,9 @@ Module.register("MMM-HTTPRequestDisplay",{
 	sendRequest: function(id) {
 		var self = this;
 
-		var xhttp = new XMLHttpRequest();
-		xhttp.open("GET", this.config.urls[id], true);
-		xhttp.onreadystatechange = function() {
+		var xhr = new XMLHttpRequest();
+		xhr.open("GET", this.config.urls[id], true);
+		xhr.onreadystatechange = function() {
 			if (this.readyState === XMLHttpRequest.DONE) {
 				if (this.status !== 200) {
 					self.sendNotification("SHOW_ALERT", {
@@ -36,7 +36,7 @@ Module.register("MMM-HTTPRequestDisplay",{
 				}
 			}
 		};
-		xhttp.send();
+		xhr.send();
 	},
 
 	// Override notification handler.
